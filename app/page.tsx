@@ -1,69 +1,109 @@
-import Image from "next/image";
+import { nav, profile } from "@/lib/content";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      <a
+        href="#intro"
+        className="absolute left-3 top-3 -translate-y-[150%] bg-white px-2 py-1 focus:translate-y-0"
+      >
+        Skip to content
+      </a>
+
+      <header className="mx-auto flex max-w-2xl flex-wrap items-baseline justify-between gap-x-6 gap-y-3 px-5 pt-5">
+        <a href="#intro" className="font-semibold no-underline">
+          {profile.name}
+        </a>
+        <nav aria-label="Page">
+          <ul className="flex flex-wrap gap-x-4 gap-y-2">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+
+      <main className="mx-auto max-w-2xl px-5 pt-8 pb-16">
+        <section id="intro" aria-labelledby="intro-heading">
+          <p>{profile.title}</p>
+          <h1 id="intro-heading" className="mt-1 text-3xl leading-tight">
+            {profile.name}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <p className="mt-2">{profile.headline}</p>
+        </section>
+
+        <section id="about" aria-labelledby="about-heading" className="mt-10">
+          <h2 id="about-heading" className="text-xl">
+            About
+          </h2>
+          {profile.about.map((paragraph) => (
+            <p key={paragraph} className="mt-3">
+              {paragraph}
+            </p>
+          ))}
+        </section>
+
+        <section
+          id="projects"
+          aria-labelledby="projects-heading"
+          className="mt-10"
+        >
+          <h2 id="projects-heading" className="text-xl">
+            Projects
+          </h2>
+          <ul className="mt-3 space-y-5">
+            {profile.projects.map((project) => (
+              <li key={project.name}>
+                <h3>{project.name}</h3>
+                <p className="mt-1">{project.summary}</p>
+                <p className="mt-1">Role: {project.role}</p>
+                <p className="mt-1">Tech: {project.tech}</p>
+                <p className="mt-1 flex flex-wrap gap-x-4">
+                  <a href={project.liveUrl}>Live site</a>
+                  <a href={project.repoUrl}>Repository</a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="skills" aria-labelledby="skills-heading" className="mt-10">
+          <h2 id="skills-heading" className="text-xl">
+            Skills
+          </h2>
+          <ul className="mt-3 space-y-4">
+            {profile.skills.map((skill) => (
+              <li key={skill.group}>
+                <h3>{skill.group}</h3>
+                <p className="mt-1">{skill.items}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section
+          id="contact"
+          aria-labelledby="contact-heading"
+          className="mt-10"
+        >
+          <h2 id="contact-heading" className="text-xl">
+            Contact
+          </h2>
+          <p className="mt-3">Email and the profiles you want people to use.</p>
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+            <li>
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </li>
+            {profile.links.map((link) => (
+              <li key={link.label}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
-    </div>
+    </>
   );
 }
